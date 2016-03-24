@@ -14,18 +14,21 @@ import java.util.Comparator;
 
 import org.eclipse.collections.api.bag.ImmutableBag;
 import org.eclipse.collections.api.list.ImmutableList;
+import org.eclipse.collections.api.multimap.Multimap;
 import org.eclipse.collections.api.multimap.bag.ImmutableBagMultimap;
 import org.eclipse.collections.api.multimap.bag.MutableBagMultimap;
 import org.eclipse.collections.api.multimap.list.ImmutableListMultimap;
 import org.eclipse.collections.api.multimap.list.MutableListMultimap;
 import org.eclipse.collections.api.multimap.set.ImmutableSetMultimap;
 import org.eclipse.collections.api.multimap.set.MutableSetMultimap;
+import org.eclipse.collections.api.multimap.sortedbag.MutableSortedBagMultimap;
 import org.eclipse.collections.api.multimap.sortedset.ImmutableSortedSetMultimap;
 import org.eclipse.collections.api.multimap.sortedset.MutableSortedSetMultimap;
 import org.eclipse.collections.api.set.ImmutableSet;
 import org.eclipse.collections.api.set.sorted.ImmutableSortedSet;
 import org.eclipse.collections.impl.multimap.bag.HashBagMultimap;
 import org.eclipse.collections.impl.multimap.bag.ImmutableBagMultimapImpl;
+import org.eclipse.collections.impl.multimap.bag.sorted.mutable.TreeBagMultimap;
 import org.eclipse.collections.impl.multimap.list.FastListMultimap;
 import org.eclipse.collections.impl.multimap.list.ImmutableListMultimapImpl;
 import org.eclipse.collections.impl.multimap.set.ImmutableSetMultimapImpl;
@@ -221,6 +224,7 @@ public final class Multimaps
         public final MutableSetMultimapFactory set = new MutableSetMultimapFactory();
         public final MutableSortedSetMultimapFactory sortedSet = new MutableSortedSetMultimapFactory();
         public final MutableBagMultimapFactory bag = new MutableBagMultimapFactory();
+        public final MutableSortedBagMultimapFactory sortedBag = new MutableSortedBagMultimapFactory();
 
         private MutableMultimaps()
         {
@@ -265,6 +269,11 @@ public final class Multimaps
                 fastListMultimap.put(key3, value3);
                 return fastListMultimap;
             }
+
+            public <K, V> MutableListMultimap<K, V> withAll(Multimap<K, V> multimap)
+            {
+                return new FastListMultimap(multimap);
+            }
         }
 
         public static final class MutableSetMultimapFactory
@@ -306,6 +315,11 @@ public final class Multimaps
                 unifiedSetMultimap.put(key3, value3);
                 return unifiedSetMultimap;
             }
+
+            public <K, V> MutableSetMultimap<K, V> withAll(Multimap<K, V> multimap)
+            {
+                return new UnifiedSetMultimap<K, V>(multimap);
+            }
         }
 
         public static final class MutableSortedSetMultimapFactory
@@ -341,6 +355,11 @@ public final class Multimaps
                 treeSortedSetMultimap.put(key2, value2);
                 treeSortedSetMultimap.put(key3, value3);
                 return treeSortedSetMultimap;
+            }
+
+            public <K, V> MutableSortedSetMultimap<K, V> withAll(Multimap<K, V> multimap)
+            {
+                return new TreeSortedSetMultimap<K, V>(multimap);
             }
         }
 
@@ -382,6 +401,56 @@ public final class Multimaps
                 hashBagMultimap.put(key2, value2);
                 hashBagMultimap.put(key3, value3);
                 return hashBagMultimap;
+            }
+
+            public <K, V> MutableBagMultimap<K, V> withAll(Multimap<K, V> multimap)
+            {
+                return new HashBagMultimap<K, V>(multimap);
+            }
+        }
+
+        public static final class MutableSortedBagMultimapFactory {
+            private MutableSortedBagMultimapFactory()
+            {
+            }
+
+            public <K, V> MutableSortedBagMultimap<K, V> empty()
+            {
+                return TreeBagMultimap.newMultimap();
+            }
+
+            public <K, V> MutableSortedBagMultimap<K, V> with()
+            {
+                return this.empty();
+            }
+
+            public <K, V> MutableSortedBagMultimap<K, V> with(K key, V value)
+            {
+                TreeBagMultimap<K, V> treeBagMultimap = TreeBagMultimap.newMultimap();
+                treeBagMultimap.put(key, value);
+                return treeBagMultimap;
+            }
+
+            public <K, V> MutableSortedBagMultimap<K, V> with(K key1, V value1, K key2, V value2)
+            {
+                TreeBagMultimap<K, V> treeBagMultimap = TreeBagMultimap.newMultimap();
+                treeBagMultimap.put(key1, value1);
+                treeBagMultimap.put(key2, value2);
+                return treeBagMultimap;
+            }
+
+            public <K, V> MutableSortedBagMultimap<K, V> with(K key1, V value1, K key2, V value2, K key3, V value3)
+            {
+                TreeBagMultimap<K, V> treeBagMultimap = TreeBagMultimap.newMultimap();
+                treeBagMultimap.put(key1, value1);
+                treeBagMultimap.put(key2, value2);
+                treeBagMultimap.put(key3, value3);
+                return treeBagMultimap;
+            }
+
+            public <K, V> MutableSortedBagMultimap<K, V> withAll(Multimap<K, V> multimap)
+            {
+                return new TreeBagMultimap<K, V>(multimap);
             }
         }
     }

@@ -69,4 +69,20 @@ public interface MutableMultimap<K, V>
     <K2, V2> MutableMultimap<K2, V2> collectKeysValues(Function2<? super K, ? super V, Pair<K2, V2>> function);
 
     <V2> MutableMultimap<K, V2> collectValues(Function<? super V, ? extends V2> function);
+
+    /**
+     * Returns a synchronized (thread-safe) collection backed by this collection.  In order to guarantee serial access,
+     * it is critical that <strong>all</strong> access to the backing collection is accomplished through the returned
+     * collection.
+     * <p>
+     * The returned collection does <i>not</i> pass the <tt>hashCode</tt> and <tt>equals</tt> operations through to the
+     * backing collection, but relies on <tt>Object</tt>'s equals and hashCode methods.  This is necessary to preserve
+     * the contracts of these operations in the case that the backing collection is a set or a list.
+     * <p>
+     * The returned collection will be serializable if this collection is serializable.
+     *
+     * @return a synchronized view of this collection.
+     * @since 8.0
+     */
+    MutableMultimap<K, V> asSynchronized();
 }

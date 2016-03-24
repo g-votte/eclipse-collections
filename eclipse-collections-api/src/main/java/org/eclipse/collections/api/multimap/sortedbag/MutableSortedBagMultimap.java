@@ -46,4 +46,6 @@ public interface MutableSortedBagMultimap<K, V>
     <K2, V2> MutableBagMultimap<K2, V2> collectKeysValues(Function2<? super K, ? super V, Pair<K2, V2>> function);
 
     <V2> MutableListMultimap<K, V2> collectValues(Function<? super V, ? extends V2> function);
+
+    MutableSortedBagMultimap<K, V> asSynchronized();
 }

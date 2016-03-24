@@ -193,4 +193,9 @@ public final class TreeBagMultimap<K, V>
     {
         return this.collectValues(function, FastListMultimap.<K, V2>newMultimap());
     }
+
+    public MutableSortedBagMultimap<K, V> asSynchronized()
+    {
+        return SynchronizedMutableSortedBagMultimap.of(this);
+    }
 }

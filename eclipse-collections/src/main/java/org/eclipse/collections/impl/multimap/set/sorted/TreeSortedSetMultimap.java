@@ -192,4 +192,9 @@ public final class TreeSortedSetMultimap<K, V>
     {
         return this.collectValues(function, FastListMultimap.<K, V2>newMultimap());
     }
+
+    public MutableSortedSetMultimap<K, V> asSynchronized()
+    {
+        return SynchronizedMutableSortedSetMultimap.of(this);
+    }
 }

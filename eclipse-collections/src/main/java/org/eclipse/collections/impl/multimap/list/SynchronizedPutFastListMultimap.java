@@ -170,4 +170,9 @@ public final class SynchronizedPutFastListMultimap<K, V>
     {
         return this.collectValues(function, FastListMultimap.<K, V2>newMultimap());
     }
+
+    public MutableListMultimap<K, V> asSynchronized()
+    {
+        return SynchronizedMutableListMultimap.of(this);
+    }
 }

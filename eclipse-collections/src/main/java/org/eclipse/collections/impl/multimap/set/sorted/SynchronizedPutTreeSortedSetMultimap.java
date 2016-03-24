@@ -191,6 +191,11 @@ public final class SynchronizedPutTreeSortedSetMultimap<K, V>
         return this.collectValues(function, FastListMultimap.<K, V2>newMultimap());
     }
 
+    public MutableSortedSetMultimap<K, V> asSynchronized()
+    {
+        return SynchronizedMutableSortedSetMultimap.of(this);
+    }
+
     public MutableSetMultimap<V, K> flip()
     {
         return Iterate.flip(this);

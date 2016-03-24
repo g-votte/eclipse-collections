@@ -132,4 +132,9 @@ public abstract class AbstractMutableBagMultimap<K, V> extends AbstractMutableMu
             this.addToTotalSize(occurrences);
         }
     }
+
+    public MutableBagMultimap<K, V> asSynchronized()
+    {
+        return SynchronizedMutableBagMultimap.of(this);
+    }
 }

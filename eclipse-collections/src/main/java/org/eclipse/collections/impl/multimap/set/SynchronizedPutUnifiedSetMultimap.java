@@ -29,6 +29,7 @@ import org.eclipse.collections.impl.map.mutable.ConcurrentHashMap;
 import org.eclipse.collections.impl.map.mutable.UnifiedMap;
 import org.eclipse.collections.impl.multimap.AbstractSynchronizedPutMultimap;
 import org.eclipse.collections.impl.multimap.bag.HashBagMultimap;
+import org.eclipse.collections.impl.multimap.set.sorted.SynchronizedMutableSortedSetMultimap;
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 import org.eclipse.collections.impl.utility.ArrayIterate;
 import org.eclipse.collections.impl.utility.Iterate;
@@ -163,6 +164,11 @@ public final class SynchronizedPutUnifiedSetMultimap<K, V>
     public <V2> MutableBagMultimap<K, V2> collectValues(Function<? super V, ? extends V2> function)
     {
         return this.collectValues(function, HashBagMultimap.<K, V2>newMultimap());
+    }
+
+    public MutableSetMultimap<K, V> asSynchronized()
+    {
+        return SynchronizedMutableSetMultimap.of(this);
     }
 
     public MutableSetMultimap<V, K> flip()

@@ -74,4 +74,9 @@ public abstract class AbstractMutableSetMultimap<K, V> extends AbstractMutableMu
     {
         return this.collectValues(function, HashBagMultimap.<K, V2>newMultimap());
     }
+
+    public MutableSetMultimap<K, V> asSynchronized()
+    {
+        return SynchronizedMutableSetMultimap.of(this);
+    }
 }

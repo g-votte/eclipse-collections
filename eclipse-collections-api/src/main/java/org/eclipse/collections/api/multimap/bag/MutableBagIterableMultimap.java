@@ -44,4 +44,6 @@ public interface MutableBagIterableMultimap<K, V>
     <K2, V2> MutableBagIterableMultimap<K2, V2> collectKeysValues(Function2<? super K, ? super V, Pair<K2, V2>> function);
 
     <V2> MutableMultimap<K, V2> collectValues(Function<? super V, ? extends V2> function);
+
+    MutableBagIterableMultimap<K, V> asSynchronized();
 }
